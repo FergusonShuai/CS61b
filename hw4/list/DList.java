@@ -52,6 +52,10 @@ public class DList {
    */
   public DList() {
     //  Your solution here.
+    head = newNode(null, null, null);
+    head.next = head;
+    head.prev = head;
+    size = 0;
   }
 
   /**
@@ -79,6 +83,10 @@ public class DList {
    */
   public void insertFront(Object item) {
     // Your solution here.
+    DListNode nn = newNode(item, head, head.next);
+    head.next.prev = nn;
+    head.next = nn;
+    size++;
   }
 
   /**
@@ -88,6 +96,10 @@ public class DList {
    */
   public void insertBack(Object item) {
     // Your solution here.
+    DListNode nn = newNode(item, head.prev, head);
+    head.prev.next = nn;
+    head.prev = nn;
+    size++;
   }
 
   /**
@@ -101,6 +113,10 @@ public class DList {
    */
   public DListNode front() {
     // Your solution here.
+    if (size == 0){
+      return null;
+    }
+    return head.next;
   }
 
   /**
@@ -114,6 +130,10 @@ public class DList {
    */
   public DListNode back() {
     // Your solution here.
+    if (size == 0){
+      return null;
+    }
+    return head.prev;
   }
 
   /**
@@ -128,6 +148,10 @@ public class DList {
    */
   public DListNode next(DListNode node) {
     // Your solution here.
+    if (size == 0 || node == null || node == head.prev) {
+      return null;
+    }
+    return node.next;
   }
 
   /**
@@ -142,6 +166,10 @@ public class DList {
    */
   public DListNode prev(DListNode node) {
     // Your solution here.
+    if (size == 0 || node == null || node == head.next) {
+      return null;
+    }
+    return node.prev;
   }
 
   /**
@@ -153,6 +181,22 @@ public class DList {
    */
   public void insertAfter(Object item, DListNode node) {
     // Your solution here.
+    if (node == null) {
+      return;
+    }
+
+    DListNode pointer = head.next;
+    while (pointer != node) {
+      pointer = pointer.next;
+    }
+
+    if (pointer != head) {
+      DListNode nn = newNode(item,pointer,pointer.next);
+      pointer.next.prev = nn;
+      pointer.next = nn;
+      size++;
+    }
+    return;
   }
 
   /**
@@ -164,6 +208,23 @@ public class DList {
    */
   public void insertBefore(Object item, DListNode node) {
     // Your solution here.
+    if (node == null) {
+      return;
+    }
+
+    DListNode pointer = head.next;
+    while (pointer != node) {
+      pointer = pointer.next;
+    }
+
+    if (pointer != head) {
+      DListNode nn = newNode(item,pointer.prev,pointer);
+      pointer.prev.next = nn;
+      pointer.prev = nn;
+      size++;
+    }
+    return;
+
   }
 
   /**
@@ -172,6 +233,21 @@ public class DList {
    */
   public void remove(DListNode node) {
     // Your solution here.
+    if (node == null || size == 0) {
+      return;
+    }
+
+    DListNode pointer = head.next;
+    while (pointer != node) {
+      pointer = pointer.next;
+    }
+
+    if (pointer != null) {
+      pointer.prev.next = pointer.next;
+      size--;
+    }
+    return;
+
   }
 
   /**
@@ -191,4 +267,5 @@ public class DList {
     }
     return result + "]";
   }
+
 }
