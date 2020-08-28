@@ -37,8 +37,7 @@ public class RunIterator implements Iterator {
    *  These variables MUST be private.
    */
 
-
-
+   private RunLengthNode currentNode;
 
   /**
    *  RunIterator() constructs a new iterator starting with a specified run.
@@ -54,8 +53,9 @@ public class RunIterator implements Iterator {
   // constructor that you want so that your RunLengthEncoding.iterator()
   // implementation can construct a RunIterator that points to the first run of
   // the encoding.
-  RunIterator() {
+  RunIterator(RunLengthNode node) {
     // Your solution here.  You may add parameters to the method signature.
+    currentNode = node;
   }
 
   /**
@@ -66,7 +66,7 @@ public class RunIterator implements Iterator {
    */
   public boolean hasNext() {
     // Replace the following line with your solution.
-    return false;
+    return currentNode.next != null;
   }
 
   /**
@@ -96,7 +96,19 @@ public class RunIterator implements Iterator {
     // call to next() will return the subsequent run.
 
     // Replace the following line with your solution.
-    return new int[4];
+    if (this.hasNext()) {
+      int[] run = new int[4];
+    run[0] = ((RunLengthItem)currentNode.item).getRunLength();
+    run[1] = ((RunLengthItem)currentNode.item).getPixel().getRed();
+    run[2] = ((RunLengthItem)currentNode.item).getPixel().getGreen();
+    run[3] = ((RunLengthItem)currentNode.item).getPixel().getBlue();
+
+    currentNode = (RunLengthNode)currentNode.next;
+
+    return run;
+    } throw new NoSuchElementException();
+    
+    
   }
 
   /**
