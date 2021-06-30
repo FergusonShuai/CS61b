@@ -7,7 +7,6 @@ public class Sorts {
   /**
    *  Place any final static fields you would like to have here.
    **/
-  private static int[] sortedKeys;
 
   /**
    *  countingSort() sorts an array of int keys according to the
@@ -28,8 +27,10 @@ public class Sorts {
     // Replace the following line with your solution.
     
     int[] counts = new int[16];  // All counts are default to 0
-    sortedKeys = new int[keys.length];
+    int[] sortedKeys = new int[keys.length];
     int i, j;
+    int total = 0; 
+    int c;
     
     if (whichDigit < 0 || whichDigit > 7) {
       System.out.println("Digit out of range; respecify whichDigit.");
@@ -43,8 +44,6 @@ public class Sorts {
     }
 
     // Get cumulative counts array indicating the starting index of each number.
-    int total = 0; 
-    int c;
     for (j = 0; j < counts.length; j++) {
       c = counts[j];
       counts[j] = total;
@@ -78,8 +77,8 @@ public class Sorts {
     for (int d = 0; d < 8; d++) {
       keys = countingSort(keys, d);
     }
-    sortedKeys = keys;
-    return sortedKeys;
+    
+    return keys;
   }
 
   /**
@@ -129,7 +128,7 @@ public class Sorts {
                    Integer.parseInt("52953fdb", 16),
                    Integer.parseInt("40013879", 16),
                    Integer.parseInt("400138ff", 16),
-                   // Integer.parseInt("90e13879", 16),
+                   // Integer.parseInt("90e13879", 16),  This equals to 2,430,679,161, out of integer range [-2,147,483,648, 2,147,483,647]
                    Integer.parseInt("700b3879", 16) };
 
     
